@@ -5,4 +5,8 @@ def position_size(signal: float, vol: float, target_vol: float = 0.02, cap: int 
     never larger than cap when vol is lower; the signal is clipped to [-1, 1];
     zero or negative vol means stay flat. Truncate to an int.
     """
-    raise NotImplementedError  # TODO: the feature you ship in this quiz
+    if vol <= 0:
+        return 0
+    s = max(-1.0, min(1.0, signal))
+    scale = min(1.0, target_vol / vol)
+    return int(s * scale * cap)
